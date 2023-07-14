@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}">
+<head>
+    <title>index</title>
+</head>
+<th:block layout:fragment="css">
+    <style>
+<!--        div{-->
+<!--            background-color: pink;-->
+<!--            margin: 2rem;-->
+<!--            height: 100px;-->
+<!--            transition: all ease 2s 0s;-->
+<!--        }-->
+<!--        h1{-->
+<!--            animation: myf infinite;-->
+<!--            animation-duration: 3s;-->
+<!--        }-->
+<!--        div:hover{-->
+<!--            transform: rotate(-45deg);-->
+<!--        }-->
+<!--    #mycheck{-->
+<!--        display: none;-->
+<!--    }-->
+<!--    #mycheck:checked ~ div{-->
+<!--        background-color: bisque;-->
+<!--        height: 300px;    -->
+<!--    }-->
+<!--    .myDiv{-->
+<!--        background-color: lightcyan;-->
+<!--        width: 100px;-->
+<!--        height: 100px;-->
+<!--        position: absolute;-->
+<!--        left: 0;-->
+<!--        animation: movemove infinite;-->
+<!--        animation-duration: 3s;-->
+<!--    }-->
+<!--    @keyframes myf{-->
+<!--        from {width: 50px;}-->
+<!--        to {width: 300px;}-->
+<!--    }-->
+<!--    @keyframes movemove{-->
+<!--        from {left: 0px; transform: rotate(0deg);}-->
+<!--        to {left: 300px;transform: rotate(360deg);}-->
+<!--    }-->
+<!--    -->
+    </style>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script>
+<!--        console.log("test");-->
+<!--        $.ajax({-->
+<!--      url:"http://127.0.0.1:5000/?alcohol=10&sugar=2&pH=3",-->
+<!--      success:function(result){-->
+<!--        if(result==[1.]){-->
+<!--          alert('1데이터입니다.');-->
+<!--        }-->
+<!--      }-->
+<!--    })-->
+    </script>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="container">
+        <div class="row m-3">
+            <div class="col-2"></div>
+            <div class="col-8" style="overflow:hidden; height:400px;">
+                <div id="carouselExample" class="carousel slide">
+                    <div class="carousel-inner rounded">
+                        <div class="carousel-item active" style="height:400px;">
+                            <img th:src="@{images/cat1.jpg}" class="d-block w-100" alt="cat image">
+                        </div>
+                        <div class="carousel-item" style="height:400px;">
+                            <img th:src="@{images/cat2.jpg}" class="d-block w-100" alt="cat image">
+                        </div>
+                        <div class="carousel-item" style="height:400px;">
+                            <img th:src="@{images/cat3.jpg}" class="d-block w-100" alt="cat image">
+                        </div>
+                        <div class="carousel-item" style="height:400px;">
+                            <img th:src="@{images/cat4.jpg}" class="d-block w-100" alt="cat image">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10 d-flex">
+                <div class="card m-3" style="width: 18rem;">
+                    <img th:src="@{images/cat1.jpg}" class="card-img-top" alt="cat1">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                            content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                <div class="card m-3" style="width: 18rem;">
+                    <img th:src="@{images/cat2.jpg}" class="card-img-top" alt="cat2">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                            content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                <div class="card m-3" style="width: 18rem;">
+                    <img th:src="@{images/cat3.jpg}" class="card-img-top" alt="cat3">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                            content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+</th:block>
+</html>

@@ -1,0 +1,27 @@
+package com.example.test0703.dao;
+
+import com.example.test0703.dto.Product;
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public class ProductsRepository {
+
+    @Autowired
+    SqlSession sqlSession;
+
+    public List<Product> doSelect(){
+        return sqlSession.selectList("product.select");
+    }
+
+    public void doInsert(Product product){
+        sqlSession.insert("product.insert", product);
+    }
+
+    public Product doSelectRow(Product product){
+        return sqlSession.selectOne("product.selectrow", product);
+    }
+}
