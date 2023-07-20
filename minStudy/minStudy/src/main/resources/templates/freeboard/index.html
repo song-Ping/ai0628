@@ -17,6 +17,16 @@
 <th:block layout:fragment="content">
   <div class="container">
     <h1>FreeBoard</h1>
+    <h1 th:text="${'총 페이지수 ' + totalPages}"></h1>
+    <h1 th:text="${'총 게시글수 ' + totalElements}"></h1>
+    <div class="d-flex w-25 justify-content-end">
+    <form class="d-flex w-md-25 w-50"  role="search">
+      <input class="w-25 form-control me-2"
+             name="searchText"
+             type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+    </div>
     <table class="table">
       <thead>
       <tr>
@@ -29,12 +39,40 @@
       <tbody>
       <tr th:each="freeboarddto :${list}">
         <td th:text="${freeboarddto.idx}"></td>
+        <td>
+          <a th:href="@{/FreeBoard/View(idx=${freeboarddto.idx})}" th:text="${freeboarddto.title}"></a>
+        </td>
         <td th:text="${freeboarddto.name}"></td>
-        <td th:text="${freeboarddto.title}"></td>
         <td th:text="${#temporals.format(freeboarddto.createdDate,'yyyy-MM-dd HH:mm')}"></td>
       </tr>
       </tbody>
     </table>
+    <div class="d-flex justify-content-center">
+    <nav aria-label="pagination">
+      <ul class="pagination">
+        <li class="page-item" th:classappend="${curPage == 1} ? 'disabled' ">
+          <a class="page-link" th:href="@{/FreeBoard(page=${curPage-2})}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item" th:each = "i:${#numbers.sequence(1,totalPages)}">
+          <a class="page-link" th:classappend="${i == curPage } ? 'active'" th:href="@{/FreeBoard(page=${i-1})}" th:text="${i}">1</a></li>
+<!--        <li class="page-item">-->
+<!--          <a class="page-link" href="#">2</a></li>-->
+<!--        <li class="page-item">-->
+<!--          <a class="page-link" href="#">3</a></li>-->
+        <li class="page-item" th:classappend="${curPage == totalPages} ? 'disabled'">
+          <a class="page-link" th:href="@{/FreeBoard(page=${curPage})}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    </div>
+    <div th:if="${totalElements == 0}">
+      <h2>검색되는 내용이 없습니다.</h2>
+    </div>
+    <a th:href="@{/FreeBoard/WriteForm}" class="btn btn-primary">글쓰기</a>
   </div>
 </th:block>
 </html>

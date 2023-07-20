@@ -16,11 +16,11 @@ public class MainController {
     FreeBoardRepository freeBoardRepository;
     @GetMapping("/")
     public String index(){
-            FreeBoard f1 = new FreeBoard().builder()
-                    .name("홍길동")
-                    .content("내용")
-                    .build();
-        freeBoardRepository.save(f1);
+//            FreeBoard f1 = new FreeBoard().builder()
+//                    .name("홍길동")
+//                    .content("내용")
+//                    .build();
+//        freeBoardRepository.save(f1);
         return "index";
     }
 
