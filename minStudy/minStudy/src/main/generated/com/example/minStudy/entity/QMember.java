@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -23,6 +24,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath age = createString("age");
 
+    public final ListPath<FreeBoard, QFreeBoard> boards = this.<FreeBoard, QFreeBoard>createList("boards", FreeBoard.class, QFreeBoard.class, PathInits.DIRECT2);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 
@@ -36,6 +39,8 @@ public class QMember extends EntityPathBase<Member> {
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
     public final StringPath password = createString("password");
+
+    public final ListPath<Role, QRole> roles = this.<Role, QRole>createList("roles", Role.class, QRole.class, PathInits.DIRECT2);
 
     public final StringPath username = createString("username");
 

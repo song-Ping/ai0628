@@ -4,12 +4,16 @@ import com.example.minStudy.dto.FreeBoardDto;
 import com.example.minStudy.entity.FreeBoard;
 import com.example.minStudy.repository.FreeBoardRepository;
 import com.example.minStudy.service.FreeBoardService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,7 +32,7 @@ public class FreeBoardController {
     @Autowired
     FreeBoardRepository freeBoardRepository;
 
-    @DeleteMapping("Delete")
+    @GetMapping("Delete")
     public @ResponseBody String delete(FreeBoardDto freeBoardDto) {
         System.out.println(freeBoardDto);
         freeBoardRepository.deleteById(freeBoardDto.getIdx());
@@ -61,7 +65,19 @@ public class FreeBoardController {
     }
 
     @PostMapping("WriteForm")
-    public String pwriteForm(@ModelAttribute @Valid FreeBoardDto freeBoardDto, BindingResult bindingResult, Model model) {
+    public String pwriteForm(@ModelAttribute @Valid FreeBoardDto freeBoardDto, BindingResult bindingResult, Model model, HttpServletRequest request,
+                             HttpSession session,
+                             Authentication authentication) {
+        System.out.println(request.getParameter("title"));
+        System.out.println(session.getAttribute("username"));
+
+        System.out.println("authentication = " + authentication);
+        System.out.println("authentication = " + authentication.getPrincipal());
+        if (authentication != null) {
+            User user = (User) authentication.getPrincipal();
+            freeBoardDto.setName(user.getUsername());
+        }
+
         if (bindingResult.hasErrors()) {
             System.out.println("사이즈 문제 있음");
 //            model.addAttribute("freeboarddto",dto);
@@ -76,7 +92,11 @@ public class FreeBoardController {
     }
 
     @PostMapping("UpdateForm")
-    public String pUpdateForm(@ModelAttribute @Valid FreeBoardDto freeBoardDto, BindingResult bindingResult, Model model) {
+    public String pUpdateForm(@ModelAttribute @Valid FreeBoardDto freeBoardDto, BindingResult bindingResult, Model model, Authentication authentication) {
+        if (authentication != null) {
+            User user = (User) authentication.getPrincipal();
+            freeBoardDto.setName(user.getUsername());
+        }
         if (bindingResult.hasErrors()) {
             System.out.println("사이즈 문제 있음");
 //            model.addAttribute("freeboarddto",dto);
@@ -97,7 +117,7 @@ public class FreeBoardController {
             direction = Sort.Direction.DESC,
             page = 0) Pageable pageable,
                         @RequestParam(required = false, defaultValue = "0") int page
-                        , @RequestParam(required = false, defaultValue = "") String searchText) {
+            , @RequestParam(required = false, defaultValue = "") String searchText) {
         Page<FreeBoard> pagelist = freeBoardService.list(searchText, searchText, pageable);
 //
 ////        총 행갯수
